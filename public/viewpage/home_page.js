@@ -98,6 +98,7 @@ function buildProductView(product, index) {
              <form method = "post" class = "review-product-form">
                 <input type = "hidden" name = "productName" value = "${product.name}">
                 <input type = "hidden" name = "productId" value = "${product.docId}">
+                <input type = "hidden" name = "productURL" value = "${product.imageURL}">
                 <button id="button-review-product" class = "btn btn-outline-primary"> Review </button>
              </form>
          </div>

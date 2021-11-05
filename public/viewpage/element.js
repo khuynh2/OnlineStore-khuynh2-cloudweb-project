@@ -58,3 +58,5 @@ export const modalSignUp = new bootstrap.Modal(document.getElementById('modal-si
 
 export const modalCommentTitle = document.getElementById('modal-comment-title');
 export const modalComment = new bootstrap.Modal(document.getElementById('modal-comment'), {backdrop: 'static'});
+export const modalContent = document.getElementById('modal-comment-content');
+export const modalCommentItemName = document.getElementById('modal-comment-item');

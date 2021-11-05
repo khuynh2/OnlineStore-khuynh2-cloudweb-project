@@ -73,14 +73,15 @@ export async function purchase_page() {
 
     const historyForms = document.getElementsByClassName('form-purchase-history');
     for (let i =0; i < historyForms.length; i++){
-        historyForms[i].addEventListener('submit', e=>{
+        historyForms[i].addEventListener('submit', async e=>{
             e.preventDefault();
             const index = e.target.index.value;
             Element.modalTransactionTitle.innerHTML = `Purchased At: ${new Date(carts[index].timestamp).toString()}`;
             Element.modalTransactionBody.innerHTML = buildTransactionView(carts[index]);
             Element.modalTransactionView.show();
-            console.log(carts[index])
-            Review.addCommentButtonListeners();
+            //console.log(carts[index])
+            await Review.addCommentButtonListeners();
+           // console.log(carts[index].name);
         })
     }
 
@@ -99,8 +100,10 @@ function buildTransactionView(cart){
   </thead>
   <tbody>
     `;
-
+    
+    let index = 0;
     cart.items.forEach(item => {
+          index++;
           html += `
               <tr>
                 <td><img src="${item.imageURL}" width = "150px"></td>
@@ -111,8 +114,8 @@ function buildTransactionView(cart){
                 <td>${item.summary}</td>
                 <td>
                 <form class = "form-comment-product" method = "post">
-                  <input type = "hidden" name = "itemName" value="${item.name}">
-               
+                  <input type = "hidden" name = "index" value="${index}">  
+                  <input type = "hidden" name = "itemName" value="${item.name}">              
                   <button  type="submit" class = "btn btn-outline-primary"> Leave Comment </button>
                 </form>
                 </td>
