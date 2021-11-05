@@ -1,0 +1,52 @@
+.my-banner {
+    width: 100%;
+    font-size: 200%;
+    text-align: center;
+    color: white;
+    background-color: navy;
+
+}
+
+li{
+    margin: 15px;
+}
+
+
+.modal-pre-auth{
+    display: block;
+}
+
+.modal-post-auth{
+    display:none;
+}
+
+.modal-post-auth-admin{
+    display:none;
+}
+
+input {
+    display: block;
+    margin: 8px 0 ;
+    padding: 8px 2px;
+    border-width: 0 0 2px 0;
+    width: 100%
+}
+
+.my-error {
+    color: red;
+}
+
+textarea{
+    width: 100%;
+    min-height: 150px;
+}
+
+#form-add-product-image-tag{
+    max-height: 200px;
+    object-fit: cover;
+}
+
+#form-edit-product-image-tag{
+    max-height: 200px;
+    object-fit: cover;
+}
