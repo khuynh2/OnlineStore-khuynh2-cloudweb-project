@@ -6,6 +6,7 @@ import * as Util from './util.js'
 import * as Auth from '../controller/auth.js'
 import {ShoppingCart} from '../model/ShoppingCart.js'
 import * as Review from './review_page.js'
+import {Product } from '../model/product.js'
 
 export function addEventListeners() {
     Element.menuHome.addEventListener('click', async () => {
