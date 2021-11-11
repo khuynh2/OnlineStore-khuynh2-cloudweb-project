@@ -19,4 +19,13 @@ export class Comment {
         }
     }
 
+    serializeForUpdate() {
+        const c = {};
+        if(this.itemName) c.itemName = this.itemName;
+        if(this.uid) c.uid = this.uid;     
+        if(this.timestamp) c.timestamp = this.timestamp;
+        if(this.content) c.content = this.content;
+        return c;
+    }
+
 }

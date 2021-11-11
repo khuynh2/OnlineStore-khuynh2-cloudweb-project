@@ -40,7 +40,10 @@ export const formEditProduct = {
     errorImage: document.getElementById('form-edit-product-error-image'),
 }
 export const formComment = {
-    form: document.getElementById('form-comment'),
+    form: document.getElementById('form-leave-comment'),
+}
+export const formEditComment = {
+    form: document.getElementById('form-edit-comment'),
 }
 
 //modal bootstrap object
@@ -60,3 +63,8 @@ export const modalCommentTitle = document.getElementById('modal-comment-title');
 export const modalComment = new bootstrap.Modal(document.getElementById('modal-comment'), {backdrop: 'static'});
 export const modalContent = document.getElementById('modal-comment-content');
 export const modalCommentItemName = document.getElementById('modal-comment-item');
+
+export const modalEditComment = new bootstrap.Modal(document.getElementById('modal-edit-comment'), {backdrop: 'static'})
+export const modalEditCommentTitle = document.getElementById('modal-edit-comment-title');
+export const modalEditContent = document.getElementById('modal-edit-comment-content');
+export const modalEditCommentItemName = document.getElementById('modal-edit-comment-item');

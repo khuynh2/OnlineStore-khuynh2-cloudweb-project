@@ -20,6 +20,14 @@ li{
     display:none;
 }
 
+.btn-post-auth{
+    display:none;
+}
+
+.btn-post-auth-admin{
+    display:none;
+}
+
 .modal-post-auth-admin{
     display:none;
 }
@@ -39,6 +47,7 @@ input {
 textarea{
     width: 100%;
     min-height: 150px;
+    
 }
 
 #form-add-product-image-tag{
@@ -50,3 +59,15 @@ textarea{
     max-height: 200px;
     object-fit: cover;
 }
+
+.comment-author{
+  font-size: 15px;
+  display: inline-block;
+  font-weight: bold;
+  
+}
+
+.comment-time{
+    font-size: 12px;
+    
+  }

@@ -30,7 +30,7 @@
               data-bs-target="#modal-signin">Sign In</button>
           </li>
           <li class="nav-item">
-            <button id="menu-home" class="btn btn-outline-primary modal-post-auth">Home</button>
+            <button id="menu-home" class="btn btn-outline-primary ">Home</button>
           </li>
           <li class="nav-item">
             <button id="menu-purchases" class="btn btn-outline-primary modal-post-auth">Purchases</button>
@@ -245,16 +245,49 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="form-comment" method="post">
+          <form id="form-leave-comment" method="post" >
 
             <input id="modal-comment-item" type = "hidden" name = "itemName" value="">      
      
-            <div>Content<br />
-              <textarea id="modal-comment-content" name="comment" required></textarea>
+            <div>Content<br/>
+              <textarea id="modal-comment-content" name="comment"  required></textarea>
             </div>
 
             <div>
               <button type="submit" class="btn btn-outline-primary">Create</button>
+            </div>
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+  <!-- Modal: Edit Comment -->
+  <div class="modal fade" id="modal-edit-comment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-edit-title" id="modal-edit-comment-title"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-edit-body">
+          <form id="form-edit-comment" method="post">
+
+            <input id="modal-edit-comment-id" type = "hidden" name = "docId" value=""> 
+            <input id="modal-edit-comment-item" type = "hidden" name = "itemName" value="">      
+     
+            <div>Content<br/>
+              <textarea id="modal-edit-comment-content" name="comment"  required></textarea>
+            </div>
+
+            <div>
+              <button type="submit" class="btn btn-outline-primary">Change</button>
             </div>
           </form>
 

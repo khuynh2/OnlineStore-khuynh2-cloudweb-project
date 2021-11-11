@@ -74,9 +74,9 @@ export async function home_page() {
 
 function buildProductView(product, index) {
     return `
-    <div class="card" style="width: 18rem; display: inline-block;">
+    <div class="card rounded" style="width: 18rem; display: inline-block;">
         <img src="${product.imageURL}" class="card-img-top">
-        <div class="card-body">
+        <div class="card-body" >
             <h5 class="card-title">${product.name}</h5>
             <p class="card-text">
                 ${Util.currency(product.price)} <br>

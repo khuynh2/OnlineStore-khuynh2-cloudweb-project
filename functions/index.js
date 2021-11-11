@@ -20,6 +20,7 @@ exports.cf_deleteProduct = functions.https.onCall(deleteProduct);
 exports.cf_getUserList = functions.https.onCall(getUserList);
 exports.cf_updateUser = functions.https.onCall(updateUser);
 exports.cf_deleteUser = functions.https.onCall(deleteUser);
+exports.cf_deleteComment = functions.https.onCall(deleteComment);
 
 function isAdmin(email) {
   return Constant.adminEmails.includes(email);
@@ -200,4 +201,23 @@ async function addProduct(data, context) {
     throw new functions.https.HttpsError('internal', 'addProduct failed');
 
   }
+}
+
+
+
+async function deleteComment(docId, context) {
+  if (!isAdmin(context.auth.token.email)) {
+    if (Constant.DEV) console.log('not admin', context.auth.token.email);
+    throw new functions.https.HttpsError('unauthenticated', 'Only admin may invoked this function');
+  }
+  try {
+    await admin.firestore().collection(Constant.collectionNames.COMMENT)
+      .doc(docId).delete();
+
+  } catch (e) {
+    if (Constant.DEV) console.log(e);
+    throw new functions.https.HttpsError('unauthenticated', 'deleteComment failed');
+
+  }
+
 }

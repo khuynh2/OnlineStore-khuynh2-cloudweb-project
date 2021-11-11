@@ -5,6 +5,9 @@ import * as Auth from '../controller/auth.js'
 import * as Constant from '../model/constant.js'
 import * as Util from './util.js'
 import { Comment } from '../model/comment.js'
+import * as EditReview from '../controller/edit_comment.js'
+
+
 
 
 export function addReviewButtonListeners() {
@@ -12,6 +15,7 @@ export function addReviewButtonListeners() {
     for (let i = 0; i < reviewButtonForm.length; i++) {
         addReviewSubmitEvent(reviewButtonForm[i])
     }
+
 }
 
 export function addReviewSubmitEvent(form) {
@@ -23,6 +27,7 @@ export function addReviewSubmitEvent(form) {
         history.pushState(null, null, Route.routePathname.REVIEW + '#' + productId);
         await review_page(productName, productURL);
     })
+
 }
 
 
@@ -57,6 +62,31 @@ export async function review_page(productName, productURL) {
 
     Element.root.innerHTML = html;
 
+    if (Auth.currentUser  && !Constant.adminEmails.includes(Auth.currentUser.email)) {
+        let elements = document.getElementsByClassName('btn-post-auth');
+        for (let i = 0; i < elements.length; i++) {
+            elements[i].style.display = 'block';
+        }
+    }
+    else if (Auth.currentUser && Constant.adminEmails.includes(Auth.currentUser.email)){
+        let adminElements = document.getElementsByClassName('btn-post-auth-admin');
+        for (let i = 0; i < adminElements.length; i++) {
+            adminElements[i].style.display = 'block';
+        }
+        let elements = document.getElementsByClassName('btn-post-auth');
+        for (let i = 0; i < elements.length; i++) {
+            elements[i].style.display = 'none';
+        }
+    }
+
+
+
+    EditReview.addReviewDeleteListeners();
+    EditReview.addReviewEditListeners();
+    EditReview.addEventListeners();
+    EditReview.addReviewAdminDeleteListeners();
+
+
 }
 
 
@@ -69,19 +99,20 @@ export function addCommentButtonListeners() {
 
         commentButtonForm[i].addEventListener('submit', async e => {
             e.preventDefault();
-        //    let index = e.target.index.value;
+            //    let index = e.target.index.value;
             itemName = e.target.itemName.value;
-            Element.modalCommentItemName.value  = itemName;
+            Element.modalCommentItemName.value = itemName;
             Element.modalContent.value = ``;
             Element.formComment.form.reset();
             Element.modalCommentTitle.innerHTML = `Review for: ${itemName}`;
-            Element.modalTransactionView.hide();     
+            Element.modalTransactionView.hide();
             Element.modalComment.show();
-            await createCommentListener();
-            
+
+
         })
     }
-    
+
+
 }
 
 
@@ -98,19 +129,17 @@ export function createCommentListener() {
         const comment = new Comment({
             itemName, uid, email, timestamp, content
         })
-        
+
+        console.log("run");
 
         try {
-            const docId = FirebaseController.addComment(comment);
-            Util.info('Thank you for your feedback!', ``, Element.modalComment);
-            return;
-          //  Element.formComment.form.reset();
-            
-
+            const docId = FirebaseController.addComment(comment);         
+            //  Element.formComment.form.reset();
         } catch {
             if (Constant.DEV) console.log(e)
             Util.info('Commnent failed', JSON.stringify(e), Element.modalAddProduct);
         }
+        Util.info('Thank you for your feedback!', ``, Element.modalComment);
 
 
     })
@@ -118,20 +147,59 @@ export function createCommentListener() {
 
 
 export function buildReview(commentList) {
+
+
+
     let html = ``;
 
     commentList.forEach(comment => {
         html += `   
-        <div class = "border border-primary">
-        <div class= "bg-info text-white" name= "reply-delete">
-          Replied by ${comment.email} (At ${new Date(comment.timestamp).toString()})
-          <button  type="button" class="btn btn-dark button-reply" value = "${comment.docId}">Delete</button>
-       </div>
-       
-       ${comment.content}
-  </div>
- 
-  <hr>`
+        <div id ="comment-${comment.docId}">
+            <div  class = "w-75  border border-primary rounded">
+
+                <div class="p-3   bg-primary text-white">
+                        <div class = "comment-author " >
+                        Author: ${comment.email} 
+                        </div>
+
+        
+                <form class="form-delete-comment" style=" display: inline-block; float: right;">  
+                    <input type = "hidden" name="docId" value="${comment.docId}">
+                    <button  type="submit" class="btn btn-outline-warning btn-sm ms-1 btn-post-auth" > 
+                                Delete
+                    </button>
+                </form>
+              
+                <form class="form-admin-delete-comment" style=" display: inline-block; float: right;">  
+                    <input type = "hidden" name="docId" value="${comment.docId}">
+                    <button  type="submit" class="btn btn-outline-warning btn-sm ms-1 btn-post-auth-admin" > 
+                                Delete
+                    </button>
+                </form>
+
+                <form class="form-edit-comment" style=" display: inline-block; float: right;">  
+                    <input type = "hidden" name="docId" value="${comment.docId}">
+                    <button  type="submit" class="btn btn-outline-warning btn-sm  btn-post-auth" > 
+                                Edit
+                    </button>
+                </form>
+            </div>
+
+          
+
+            <div class = "comment-time border border-bottom">  
+                (At ${new Date(comment.timestamp).toString()})      
+            </div>
+
+            <div class = "comment-content"> 
+            ${comment.content} 
+            </div>
+            
+           
+
+            <br>
+        </div>
+         `
     })
 
     return html;

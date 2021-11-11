@@ -84,6 +84,10 @@ export async function purchase_page() {
            // console.log(carts[index].name);
         })
     }
+    Review.createCommentListener();
+
+  }
+   
 
 function buildTransactionView(cart){
     let html =  `
@@ -130,4 +134,3 @@ function buildTransactionView(cart){
     return html;
 }
 
-}
