@@ -19,7 +19,7 @@ export const formSignin = document.getElementById('form-signin');
 export const formSignUp = document.getElementById('form-signup');
 export const formSignUpPasswordError = document.getElementById('form-signup-password-error');
 export const buttonSignup = document.getElementById('button-signup');
-//export const buttonReview = document.getElementById('button-review-product');
+export const buttonReview = document.getElementById('create-comment');
 
 export const formAddProduct = {
     form: document.getElementById('form-add-product'),

@@ -186,7 +186,7 @@ export async function getCommentList(itemName) {
     const snapShot = await firebase.firestore()
         .collection(Constant.collectionNames.COMMENT)
         .where('itemName', '==', itemName)
-        .orderBy('timestamp')
+        .orderBy('timestamp', "desc")
         .get();
 
     const comments = [];

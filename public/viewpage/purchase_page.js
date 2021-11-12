@@ -12,6 +12,7 @@ export function addEventListeners() {
         const label = Util.disableButton(Element.menuPurchases);
         await purchase_page();
         Util.enableButton(Element.menuPurchases,label);
+        
     })
 }
 
@@ -84,6 +85,7 @@ export async function purchase_page() {
            // console.log(carts[index].name);
         })
     }
+    
     Review.createCommentListener();
 
   }

@@ -29,6 +29,7 @@ export function addEventListeners() {
         try {
             await FirebaseController.updateComment(c);
             const cardTag = document.getElementById('comment-' + c.docId);
+            cardTag.getElementsByClassName('comment-time')[0].innerHTML = new Date(c.timestamp).toString();
             cardTag.getElementsByClassName('comment-content')[0].innerHTML = c.content;
             Element.modalEditComment.hide();
 
@@ -66,6 +67,7 @@ export function addReviewDeleteListeners() {
             }
 
             const commentCard = document.getElementById('comment-' + id);
+          
             commentCard.remove();
 
 

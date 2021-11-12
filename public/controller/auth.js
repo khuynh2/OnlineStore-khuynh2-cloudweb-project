@@ -66,7 +66,7 @@ export function addEventListners() {
                 for (let i = 0; i < elements.length; i++) {
                     elements[i].style.display = 'block';
                 }
-
+                history.pushState(null, null, Route.routePathname.HOME);
                 Route.routing(window.location.pathname, window.location.hash);
             }
             // sign in user
@@ -86,7 +86,7 @@ export function addEventListners() {
                 for (let i = 0; i < elements.length; i++) {
                     elements[i].style.display = 'block';
                 }
-
+                history.pushState(null, null, Route.routePathname.HOME);
                 Route.routing(window.location.pathname, window.location.hash);
             }
             else {

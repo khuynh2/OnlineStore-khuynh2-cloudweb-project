@@ -34,7 +34,7 @@ export function addReviewSubmitEvent(form) {
 export async function review_page(productName, productURL) {
 
     if (!productName) {
-        Util.info('Error', 'Product Id is null: invalid access')
+       // Util.info('Error', 'Product Id is null: invalid access')
         return;
     }
 
@@ -79,6 +79,9 @@ export async function review_page(productName, productURL) {
         }
     }
 
+    // let editAuth = document.getElementById("edit-" + Auth.currentUser.id);
+    // console.log(Auth.currentUser.id);
+    // editAuth.style.display = "block";
 
 
     EditReview.addReviewDeleteListeners();
@@ -93,7 +96,7 @@ export async function review_page(productName, productURL) {
 
 export function addCommentButtonListeners() {
     const commentButtonForm = document.getElementsByClassName('form-comment-product');
-    console.log(commentButtonForm.length)
+    //console.log(commentButtonForm.length)
     let itemName
     for (let i = 0; i < commentButtonForm.length; i++) {
 
@@ -126,20 +129,25 @@ export function createCommentListener() {
         const timestamp = Date.now();
         const content = e.target.comment.value;
 
+        const label = Util.disableButton(Element.buttonReview);
+
         const comment = new Comment({
             itemName, uid, email, timestamp, content
         })
 
-        console.log("run");
+       // console.log("run");
 
         try {
             const docId = FirebaseController.addComment(comment);         
             //  Element.formComment.form.reset();
+           
+            
         } catch {
             if (Constant.DEV) console.log(e)
             Util.info('Commnent failed', JSON.stringify(e), Element.modalAddProduct);
         }
-        Util.info('Thank you for your feedback!', ``, Element.modalComment);
+         Util.enableButton(Element.buttonReview,label);
+         Util.info('Thank you for your feedback!', ``, Element.modalComment);
 
 
     })
@@ -153,6 +161,8 @@ export function buildReview(commentList) {
     let html = ``;
 
     commentList.forEach(comment => {
+        let display = displayUserAuth(comment.uid);
+
         html += `   
         <div id ="comment-${comment.docId}">
             <div  class = "w-75  border border-primary rounded">
@@ -165,21 +175,21 @@ export function buildReview(commentList) {
         
                 <form class="form-delete-comment" style=" display: inline-block; float: right;">  
                     <input type = "hidden" name="docId" value="${comment.docId}">
-                    <button  type="submit" class="btn btn-outline-warning btn-sm ms-1 btn-post-auth" > 
+                    <button  type="submit" class="btn btn-outline-warning btn-sm ms-1" style=" display: ${display};" > 
                                 Delete
                     </button>
                 </form>
               
                 <form class="form-admin-delete-comment" style=" display: inline-block; float: right;">  
                     <input type = "hidden" name="docId" value="${comment.docId}">
-                    <button  type="submit" class="btn btn-outline-warning btn-sm ms-1 btn-post-auth-admin" > 
+                    <button  type="submit" class="btn btn-outline-danger btn-sm ms-1 btn-post-auth-admin" > 
                                 Delete
                     </button>
                 </form>
 
                 <form class="form-edit-comment" style=" display: inline-block; float: right;">  
                     <input type = "hidden" name="docId" value="${comment.docId}">
-                    <button  type="submit" class="btn btn-outline-warning btn-sm  btn-post-auth" > 
+                    <button  type="submit" class="btn btn-outline-warning btn-sm " style=" display: ${display};" > 
                                 Edit
                     </button>
                 </form>
@@ -203,4 +213,18 @@ export function buildReview(commentList) {
     })
 
     return html;
+}
+
+function displayUserAuth (commentUid){
+       
+       if(Auth.currentUser == null){
+           return "none";
+       }
+       
+       if(commentUid == Auth.currentUser.uid){
+           return "block";
+       }
+       else {
+           return "none";
+       }
 }
