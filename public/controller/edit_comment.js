@@ -66,8 +66,7 @@ export function addReviewDeleteListeners() {
                 return;
             }
 
-            const commentCard = document.getElementById('comment-' + id);
-          
+            const commentCard = document.getElementById('comment-' + id);        
             commentCard.remove();
 
 

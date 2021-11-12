@@ -208,6 +208,7 @@ export function buildReview(commentList) {
            
 
             <br>
+            </div>
         </div>
          `
     })
