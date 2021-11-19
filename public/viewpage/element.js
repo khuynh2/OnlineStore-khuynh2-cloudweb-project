@@ -67,9 +67,11 @@ export const modalComment = new bootstrap.Modal(document.getElementById('modal-c
 export const modalContent = document.getElementById('modal-comment-content');
 export const modalCommentItemName = document.getElementById('modal-comment-item');
 export const modalCommentRate = document.getElementById('modal-comment-rate');
+export const modalRate = document.getElementsByClassName('rating');
 
 export const modalEditComment = new bootstrap.Modal(document.getElementById('modal-edit-comment'), {backdrop: 'static'})
 export const modalEditCommentTitle = document.getElementById('modal-edit-comment-title');
 export const modalEditContent = document.getElementById('modal-edit-comment-content');
 export const modalEditCommentItemName = document.getElementById('modal-edit-comment-item');
 export const modalEditRate = document.getElementById('modal-edit-rate');
+export const modalStarEdit = document.getElementsByClassName('rate-edit');

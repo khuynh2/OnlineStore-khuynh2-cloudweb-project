@@ -106,6 +106,7 @@ export function addReviewEditListeners() {
             Element.modalEditContent.value = `${comment.content}`;
             // Element.formEditComment.form.reset();
             Element.modalEditCommentTitle.innerHTML = `Review for: ${itemName}`;
+            Element.modalStarEdit.innerHTML = ReviewPage.rateDislay(0);
 
             Element.modalEditComment.show();
             Rate.ratingEditEventListener();
