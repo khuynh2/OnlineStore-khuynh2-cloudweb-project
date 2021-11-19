@@ -245,13 +245,9 @@ export function rateDislay(rate) {
     //     console.log(i);
     // })
 
-    if (Number.isNaN(rate) || rate == null) {
+    if (Number.isNaN(rate) || rate == null || rate == 0) {
         return `
-       <i class="fa fa-star unchecked" ></i>
-       <i class="fa fa-star unchecked" ></i>
-       <i class="fa fa-star unchecked" ></i>
-       <i class="fa fa-star unchecked" ></i>
-       <i class="fa fa-star unchecked" ></i>
+          
         `
     }
 
@@ -259,7 +255,7 @@ export function rateDislay(rate) {
     rate = Number.parseFloat(rate).toFixed(1);
 
     let html = ``
-
+   
     for (let i = 1; i <= 5; i++) {
         if (i <= rate) {
             html += `<i class="fa fa-star checked" ></i>`
@@ -268,6 +264,7 @@ export function rateDislay(rate) {
             html += `<i class="fa fa-star unchecked" ></i>`
         }
     }
+
 
     return html
 

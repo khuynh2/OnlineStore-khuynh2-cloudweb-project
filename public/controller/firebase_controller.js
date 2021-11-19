@@ -229,16 +229,21 @@ export async function updateComment(commentInfo) {
 export async function averageRate(itemName) {
     let commentList = await getCommentList(itemName);
     let sum = 0;
-
+    let length = 0;
     //    for (let i =0; i<comments.length; i++){
     //        sum += comments[i].rate;
     //    }
 
     commentList.forEach(comment => {
-           sum += parseFloat(comment.rate);
+        let i = parseFloat(comment.rate);
+        
+        if (!isNaN(i) && i != 0) {
+            sum += i;
+            length++;
+        }
     })
 
-    return sum / commentList.length;
+    return sum / length;
 
 }
 
