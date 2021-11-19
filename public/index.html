@@ -10,6 +10,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
   <title>Lesson2</title>
 </head>
 
@@ -245,13 +247,22 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="form-leave-comment" method="post" >
+          <form id="form-leave-comment" method="post">
 
-            <input id="modal-comment-item" type = "hidden" name = "itemName" value="">      
-     
-            <div>Content<br/>
-              <textarea id="modal-comment-content" name="comment"  required></textarea>
+            <input id="modal-comment-item" type="hidden" name="itemName" value="">
+
+            <div>Content<br />
+              <textarea id="modal-comment-content" name="comment" required></textarea>
             </div>
+
+            <div class="rating">
+              <i class="fa fa-star" id ="one"></i>
+              <i class="fa fa-star" id ="two"></i>
+              <i class="fa fa-star" id ="three"></i>
+              <i class="fa fa-star" id ="four"></i>
+              <i class="fa fa-star" id ="five"></i>
+            </div>
+            <input id="modal-comment-rate" type="hidden" name="score" value="">
 
             <div>
               <button id="create-comment" type="submit" class="btn btn-outline-primary">Create</button>
@@ -279,12 +290,21 @@
         <div class="modal-edit-body">
           <form id="form-edit-comment" method="post">
 
-            <input id="modal-edit-comment-id" type = "hidden" name = "docId" value=""> 
-            <input id="modal-edit-comment-item" type = "hidden" name = "itemName" value="">      
-     
-            <div>Content<br/>
-              <textarea id="modal-edit-comment-content" name="comment"  required></textarea>
+            <input id="modal-edit-comment-id" type="hidden" name="docId" value="">
+            <input id="modal-edit-comment-item" type="hidden" name="itemName" value="">
+
+            <div>Content<br />
+              <textarea id="modal-edit-comment-content" name="comment" required></textarea>
             </div>
+
+            <div class="rate-edit">
+              <i class="fa fa-star" id ="edit-one"></i>
+              <i class="fa fa-star" id ="edit-two"></i>
+              <i class="fa fa-star" id ="edit-three"></i>
+              <i class="fa fa-star" id ="edit-four"></i>
+              <i class="fa fa-star" id ="edit-five"></i>
+            </div>
+            <input id="modal-edit-rate" type="hidden" name="score" value="">
 
             <div>
               <button type="submit" class="btn btn-outline-primary">Change</button>
@@ -316,6 +336,7 @@
     -->
   <script defer src="/__/firebase/init.js?useEmulator=true"></script>
   <script type="module" src="app.js"></script>
+
 
 
   <!-- Option 1: Bootstrap Bundle with Popper -->

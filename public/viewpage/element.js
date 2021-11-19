@@ -41,9 +41,12 @@ export const formEditProduct = {
 }
 export const formComment = {
     form: document.getElementById('form-leave-comment'),
+    rate: document.getElementsByClassName('rating'),
+
 }
 export const formEditComment = {
     form: document.getElementById('form-edit-comment'),
+    rateEdit: document.getElementsByClassName('rate-edit'),
 }
 
 //modal bootstrap object
@@ -63,8 +66,10 @@ export const modalCommentTitle = document.getElementById('modal-comment-title');
 export const modalComment = new bootstrap.Modal(document.getElementById('modal-comment'), {backdrop: 'static'});
 export const modalContent = document.getElementById('modal-comment-content');
 export const modalCommentItemName = document.getElementById('modal-comment-item');
+export const modalCommentRate = document.getElementById('modal-comment-rate');
 
 export const modalEditComment = new bootstrap.Modal(document.getElementById('modal-edit-comment'), {backdrop: 'static'})
 export const modalEditCommentTitle = document.getElementById('modal-edit-comment-title');
 export const modalEditContent = document.getElementById('modal-edit-comment-content');
 export const modalEditCommentItemName = document.getElementById('modal-edit-comment-item');
+export const modalEditRate = document.getElementById('modal-edit-rate');

@@ -71,3 +71,30 @@ textarea{
     font-size: 12px;
     
   }
+
+
+.fa-star {
+    color: black;
+ }
+
+ /* .fa-star::before {
+    color: orange;
+ } */
+
+ 
+.rating {
+   
+}
+
+/* .fa-star:hover~ .fa-star::before{
+    color: black;
+} */
+
+.checked {
+    color:orange;
+}
+
+.unchecked{
+    color: black;
+}
+

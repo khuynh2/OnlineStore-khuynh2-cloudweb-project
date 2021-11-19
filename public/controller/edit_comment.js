@@ -4,6 +4,8 @@ import * as Element from '../viewpage/element.js'
 import * as Util from '../viewpage/util.js'
 import { Comment } from '../model/comment.js'
 import * as Auth from './auth.js'
+import * as Rate from '../controller/rating.js'
+import * as ReviewPage from '../viewpage/review_page.js'
 
 
 // itemName: this.itemName,
@@ -23,6 +25,7 @@ export function addEventListeners() {
             email: Auth.currentUser.email,
             timestamp: Date.now(),
             content: e.target.comment.value,
+            rate: e.target.score.value,
         });
         c.docId = e.target.docId.value;
 
@@ -31,6 +34,8 @@ export function addEventListeners() {
             const cardTag = document.getElementById('comment-' + c.docId);
             cardTag.getElementsByClassName('comment-time')[0].innerHTML = new Date(c.timestamp).toString();
             cardTag.getElementsByClassName('comment-content')[0].innerHTML = c.content;
+            cardTag.getElementsByClassName('comment-score')[0].innerHTML = ReviewPage.rateDislay(c.rate);
+            
             Element.modalEditComment.hide();
 
 
@@ -39,7 +44,7 @@ export function addEventListeners() {
             Util.info('Update comment error', JSON.stringify(e), Element.modalEditComment);
         }
 
-
+       
 
     })
 }
@@ -101,8 +106,10 @@ export function addReviewEditListeners() {
             Element.modalEditContent.value = `${comment.content}`;
             // Element.formEditComment.form.reset();
             Element.modalEditCommentTitle.innerHTML = `Review for: ${itemName}`;
-            Element.modalEditComment.show();
 
+            Element.modalEditComment.show();
+            Rate.ratingEditEventListener();
+         
         })
     }
 }

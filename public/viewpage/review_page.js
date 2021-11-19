@@ -34,7 +34,7 @@ export function addReviewSubmitEvent(form) {
 export async function review_page(productName, productURL) {
 
     if (!productName) {
-       // Util.info('Error', 'Product Id is null: invalid access')
+        // Util.info('Error', 'Product Id is null: invalid access')
         return;
     }
 
@@ -62,13 +62,13 @@ export async function review_page(productName, productURL) {
 
     Element.root.innerHTML = html;
 
-    if (Auth.currentUser  && !Constant.adminEmails.includes(Auth.currentUser.email)) {
+    if (Auth.currentUser && !Constant.adminEmails.includes(Auth.currentUser.email)) {
         let elements = document.getElementsByClassName('btn-post-auth');
         for (let i = 0; i < elements.length; i++) {
             elements[i].style.display = 'block';
         }
     }
-    else if (Auth.currentUser && Constant.adminEmails.includes(Auth.currentUser.email)){
+    else if (Auth.currentUser && Constant.adminEmails.includes(Auth.currentUser.email)) {
         let adminElements = document.getElementsByClassName('btn-post-auth-admin');
         for (let i = 0; i < adminElements.length; i++) {
             adminElements[i].style.display = 'block';
@@ -88,6 +88,7 @@ export async function review_page(productName, productURL) {
     EditReview.addReviewEditListeners();
     EditReview.addEventListeners();
     EditReview.addReviewAdminDeleteListeners();
+
 
 
 }
@@ -128,26 +129,23 @@ export function createCommentListener() {
         const email = Auth.currentUser.email;
         const timestamp = Date.now();
         const content = e.target.comment.value;
-
+        const rate = e.target.score.value;
         const label = Util.disableButton(Element.buttonReview);
-
         const comment = new Comment({
-            itemName, uid, email, timestamp, content
+            itemName, uid, email, timestamp, content, rate
         })
 
-       // console.log("run");
+        // console.log("run");
 
         try {
-            const docId = FirebaseController.addComment(comment);         
-            //  Element.formComment.form.reset();
-           
-            
-        } catch {
+            const docId = FirebaseController.addComment(comment);
+
+        } catch (e) {
             if (Constant.DEV) console.log(e)
             Util.info('Commnent failed', JSON.stringify(e), Element.modalAddProduct);
         }
-         Util.enableButton(Element.buttonReview,label);
-         Util.info('Thank you for your feedback!', ``, Element.modalComment);
+        Util.enableButton(Element.buttonReview, label);
+        Util.info('Thank you for your feedback!', ``, Element.modalComment);
 
 
     })
@@ -198,15 +196,24 @@ export function buildReview(commentList) {
           
 
             <div class = "comment-time border border-bottom">  
-                (At ${new Date(comment.timestamp).toString()})      
-            </div>
+                (At ${new Date(comment.timestamp).toString()})   
+            </div>   
+                
+            <div class="comment-score" >
+                `
 
-            <div class = "comment-content"> 
-            ${comment.content} 
-            </div>
+
+
+        html += rateDislay(comment.rate)
+
+        html +=
+            `   </div>
             
-           
 
+
+                <div class = "comment-content"> 
+                ${comment.content} 
+                </div>
             <br>
             </div>
         </div>
@@ -216,16 +223,52 @@ export function buildReview(commentList) {
     return html;
 }
 
-function displayUserAuth (commentUid){
-       
-       if(Auth.currentUser == null){
-           return "none";
-       }
-       
-       if(commentUid == Auth.currentUser.uid){
-           return "block";
-       }
-       else {
-           return "none";
-       }
+function displayUserAuth(commentUid) {
+
+    if (Auth.currentUser == null) {
+        return "none";
+    }
+
+    if (commentUid == Auth.currentUser.uid) {
+        return "block";
+    }
+    else {
+        return "none";
+    }
+}
+
+
+export function rateDislay(rate) {
+    // let stars = document.getElementById('stars').childNodes;
+
+    // stars.forEach(star =>{
+    //     console.log(i);
+    // })
+
+    if (Number.isNaN(rate) || rate == null) {
+        return `
+       <i class="fa fa-star unchecked" ></i>
+       <i class="fa fa-star unchecked" ></i>
+       <i class="fa fa-star unchecked" ></i>
+       <i class="fa fa-star unchecked" ></i>
+       <i class="fa fa-star unchecked" ></i>
+        `
+    }
+
+
+    rate = Number.parseFloat(rate).toFixed(1);
+
+    let html = ``
+
+    for (let i = 1; i <= 5; i++) {
+        if (i <= rate) {
+            html += `<i class="fa fa-star checked" ></i>`
+        }
+        else {
+            html += `<i class="fa fa-star unchecked" ></i>`
+        }
+    }
+
+    return html
+
 }

@@ -5,7 +5,7 @@ export class Comment {
         this.email = data.email;
         this.timestamp = data.timestamp;
         this.content = data.content;
-
+        this.rate = data.rate;
 
     }
 
@@ -16,6 +16,7 @@ export class Comment {
             email: this.email,
             timestamp: this.timestamp,
             content: this.content,
+            rate: this.rate,
         }
     }
 
@@ -25,6 +26,7 @@ export class Comment {
         if(this.uid) c.uid = this.uid;     
         if(this.timestamp) c.timestamp = this.timestamp;
         if(this.content) c.content = this.content;
+        if(this.rate) c.rate = this.rate;
         return c;
     }
 

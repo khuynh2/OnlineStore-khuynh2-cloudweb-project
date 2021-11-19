@@ -5,6 +5,7 @@ import * as Auth from '../controller/auth.js'
 import * as Constant from '../model/constant.js'
 import * as Util from './util.js'
 import * as Review from './review_page.js'
+import * as Rate from '../controller/rating.js'
 
 export function addEventListeners() {
     Element.menuPurchases.addEventListener('click', async () => {
@@ -12,6 +13,7 @@ export function addEventListeners() {
         const label = Util.disableButton(Element.menuPurchases);
         await purchase_page();
         Util.enableButton(Element.menuPurchases,label);
+    
         
     })
 }
@@ -80,15 +82,17 @@ export async function purchase_page() {
             Element.modalTransactionTitle.innerHTML = `Purchased At: ${new Date(carts[index].timestamp).toString()}`;
             Element.modalTransactionBody.innerHTML = buildTransactionView(carts[index]);
             Element.modalTransactionView.show();
-            //console.log(carts[index])
             await Review.addCommentButtonListeners();
-           // console.log(carts[index].name);
-        })
+          
+        });
     }
-    
-    Review.createCommentListener();
 
+
+    Review.createCommentListener();
+    Rate.ratingEventListener();
   }
+   
+  
    
 
 function buildTransactionView(cart){

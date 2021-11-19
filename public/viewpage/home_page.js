@@ -4,9 +4,9 @@ import * as FirebaseController from '../controller/firebase_controller.js'
 import * as Constant from '../model/constant.js'
 import * as Util from './util.js'
 import * as Auth from '../controller/auth.js'
-import {ShoppingCart} from '../model/ShoppingCart.js'
+import { ShoppingCart } from '../model/ShoppingCart.js'
 import * as Review from './review_page.js'
-import {Product } from '../model/product.js'
+import { Product } from '../model/product.js'
 
 export function addEventListeners() {
     Element.menuHome.addEventListener('click', async () => {
@@ -40,25 +40,25 @@ export async function home_page() {
     }
 
     for (let i = 0; i < products.length; i++) {
-        html += buildProductView(products[i], i);
+        html += await buildProductView(products[i], i);
     }
     Element.root.innerHTML = html;
 
     const decForms = document.getElementsByClassName('form-dec-qty');
-    for (let i = 0; i< decForms.length; i++){
+    for (let i = 0; i < decForms.length; i++) {
         decForms[i].addEventListener('submit', e => {
             e.preventDefault();
             const p = products[e.target.index.value]; // 
             //remove product p to shopping cart
             cart.removeItem(p);
-            document.getElementById('qty-' + p.docId).innerHTML = (p.qty==null||p.qty==0)? 'Add' : p.qty;
+            document.getElementById('qty-' + p.docId).innerHTML = (p.qty == null || p.qty == 0) ? 'Add' : p.qty;
             Element.shoppingCartCount.innerHTML = cart.getTotalQty();
-            
+
         })
     }
 
     const incForms = document.getElementsByClassName('form-inc-qty');
-    for (let i = 0; i< decForms.length; i++){
+    for (let i = 0; i < decForms.length; i++) {
         incForms[i].addEventListener('submit', e => {
             e.preventDefault();
             const p = products[e.target.index.value]; // 
@@ -66,14 +66,16 @@ export async function home_page() {
             cart.addItem(p);
             document.getElementById('qty-' + p.docId).innerHTML = p.qty;
             Element.shoppingCartCount.innerHTML = cart.getTotalQty();
-           
+
         })
     }
     Review.addReviewButtonListeners();
 }
 
-function buildProductView(product, index) {
-    return `
+async function buildProductView(product, index) {
+    let avg = await FirebaseController.averageRate(product.name);
+
+    let html = `
     <div class="card rounded" style="width: 18rem; display: inline-block;">
         <img src="${product.imageURL}" class="card-img-top">
         <div class="card-body" >
@@ -82,7 +84,12 @@ function buildProductView(product, index) {
                 ${Util.currency(product.price)} <br>
                 ${product.summary}
                 </p>
-             <div class = "container pt-3 bg-light ${Auth.currentUser ?  'd-block' : 'd-none' }">
+                `
+    html+=Review.rateDislay(avg);
+
+
+    html += `
+             <div class = "container pt-3 bg-light ${Auth.currentUser ? 'd-block' : 'd-none'}">
                 <form method = "post" class="d-inline form-dec-qty">
                       <input type = "hidden" name ="index" value="${index}">
                       <button class="btn btn-outline-danger"> &minus;</button>
@@ -105,18 +112,21 @@ function buildProductView(product, index) {
          </div>
     </div>
     `;
+
+
+    return html
 }
 
-export function initShoppingCart(){  
-   let cartString= window.localStorage.getItem('cart-' + Auth.currentUser.uid);
-   
-   cart = ShoppingCart.parse(cartString);
-   if(!cart || !cart.isValid()|| cart.uid != Auth.currentUser.uid){
-       window.localStorage.removeItem('cart-' + Auth.currentUser.uid);
-       cart = new ShoppingCart(Auth.currentUser.uid);
-   }
+export function initShoppingCart() {
+    let cartString = window.localStorage.getItem('cart-' + Auth.currentUser.uid);
+
+    cart = ShoppingCart.parse(cartString);
+    if (!cart || !cart.isValid() || cart.uid != Auth.currentUser.uid) {
+        window.localStorage.removeItem('cart-' + Auth.currentUser.uid);
+        cart = new ShoppingCart(Auth.currentUser.uid);
+    }
 
     Element.shoppingCartCount.innerHTML = cart.getTotalQty();
-   // console.log(cart.getTotalQty());
+    // console.log(cart.getTotalQty());
 
 }

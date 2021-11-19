@@ -93,7 +93,7 @@ export async function deleteUser(uid) {
 
 
 const cf_deleteComment = firebase.functions().httpsCallable('cf_deleteComment');
-export async function deleteCommentAdmin(docId){
+export async function deleteCommentAdmin(docId) {
     await cf_deleteComment(docId);
 }
 
@@ -202,20 +202,20 @@ export async function getCommentList(itemName) {
 
 
 
-export async function getCommentById(commentId){
+export async function getCommentById(commentId) {
     const doc = await firebase.firestore()
-          .collection(Constant.collectionNames.COMMENT)
-          .doc(commentId)
-          .get();
-    
-          if (doc.exists) {
-            const { itemName, uid, timestamp, content } = doc.data();
-            const c = { itemName, uid, timestamp, content };
-            c.docId = doc.id;
-            return c;
-          } else {
-            return null; //document does not exists
-          }
+        .collection(Constant.collectionNames.COMMENT)
+        .doc(commentId)
+        .get();
+
+    if (doc.exists) {
+        const { itemName, uid, timestamp, content } = doc.data();
+        const c = { itemName, uid, timestamp, content };
+        c.docId = doc.id;
+        return c;
+    } else {
+        return null; //document does not exists
+    }
 
 }
 
@@ -224,7 +224,21 @@ export async function updateComment(commentInfo) {
         .collection(Constant.collectionNames.COMMENT)
         .doc(commentInfo.docId)
         .update(commentInfo.serialize());
-    
-    
+}
+
+export async function averageRate(itemName) {
+    let commentList = await getCommentList(itemName);
+    let sum = 0;
+
+    //    for (let i =0; i<comments.length; i++){
+    //        sum += comments[i].rate;
+    //    }
+
+    commentList.forEach(comment => {
+           sum += parseFloat(comment.rate);
+    })
+
+    return sum / commentList.length;
 
 }
+
