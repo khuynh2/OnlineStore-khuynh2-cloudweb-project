@@ -93,7 +93,10 @@ export async function edit_product(docId){
     Element.formEditProduct.form.name.value = product.name;
     Element.formEditProduct.form.price.value = product.price;
     Element.formEditProduct.form.summary.value = product.summary;
-    Element.formEditProduct.form.tags.value = product.tags.toString().split(',').join(' ');
+
+    if(product.tags != null){
+    Element.formEditProduct.form.tags.value = product.tags.toString().split(',').join(' ');}
+
     Element.formEditProduct.imageTag.src = product.imageURL;
     Element.formEditProduct.errorImage.innerHTML = '';
     imageFile2Upload = null;
