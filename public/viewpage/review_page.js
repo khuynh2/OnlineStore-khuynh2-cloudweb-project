@@ -7,8 +7,8 @@ import * as Util from './util.js'
 import { Comment } from '../model/comment.js'
 import * as EditReview from '../controller/edit_comment.js'
 
-
-
+import * as Review from './review_page.js'
+import * as Rate from '../controller/rating.js'
 
 export function addReviewButtonListeners() {
     const reviewButtonForm = document.getElementsByClassName('review-product-form');
@@ -100,23 +100,26 @@ export function addCommentButtonListeners() {
     //console.log(commentButtonForm.length)
     let itemName
     for (let i = 0; i < commentButtonForm.length; i++) {
-
-        commentButtonForm[i].addEventListener('submit', async e => {
+            commentButtonForm[i].addEventListener('submit', async e => {
             e.preventDefault();
             //    let index = e.target.index.value;
             itemName = e.target.itemName.value;
             Element.modalCommentItemName.value = itemName;
             Element.modalContent.value = ``;
-            Element.formComment.form.reset();
+            
+          //  Element.formComment.form.reset();
             Element.modalCommentTitle.innerHTML = `Review for: ${itemName}`;
             Element.modalRate.innerHTML = rateDislay(0);
             Element.modalTransactionView.hide();
             Element.modalComment.show();
-
-
-        })
+            
+            
+            Review.createCommentListener();
+           
+            
+        },)
     }
-
+    
 
 }
 
@@ -125,6 +128,7 @@ export function addCommentButtonListeners() {
 export function createCommentListener() {
     Element.formComment.form.addEventListener('submit', async e => {
         e.preventDefault();
+
         const itemName = e.target.itemName.value;
         const uid = Auth.currentUser.uid;
         const email = Auth.currentUser.email;
@@ -140,16 +144,18 @@ export function createCommentListener() {
 
         try {
             const docId = FirebaseController.addComment(comment);
+             Rate.resetRating(0); 
+             Util.info('Thank you for your feedback!', ``, Element.modalComment);
 
         } catch (e) {
             if (Constant.DEV) console.log(e)
-            Util.info('Commnent failed', JSON.stringify(e), Element.modalAddProduct);
+            Util.info('Commnent failed', JSON.stringify(e), Element.modalComment);
         }
         Util.enableButton(Element.buttonReview, label);
-        Util.info('Thank you for your feedback!', ``, Element.modalComment);
+        
+        
 
-
-    })
+     }, { once: true })
 }
 
 

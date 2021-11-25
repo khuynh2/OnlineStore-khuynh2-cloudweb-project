@@ -6,6 +6,7 @@ export class Product {
         this.imageName = data.imageName;
         this.imageURL = data.imageURL;
         this.qty = Number.isInteger(data.qty) ? data.qty: null;
+        this.tags = data.tags;
     }
     serialize(){
         return {
@@ -15,6 +16,7 @@ export class Product {
             imageName: this.imageName,
             imageURL: this.imageURL,
             qty: this.qty,
+            tags: this.tags,
         }
     }
 
@@ -24,6 +26,7 @@ export class Product {
         if (this.price) p.price = this.price;
         if (this.summary) p.summary = this.summary;
         if (this.imageURL) p.imageURL = this.imageURL;
+        if(this.tags) p.tags = this.tags;
         return p;
     }
 
@@ -33,7 +36,7 @@ export class Product {
         if(!this.price || !Number(this.price)) errors.price = 'Price is not a number';
         if(!this.summary || this.summary.length < 5) errors.summary = 'Product summary too short; min 5 chars';
         if(!imageFile) errors.image = 'Image not selected';
-    
+        if(!this.tags || this.tags.length < 1 ) errors.tags = 'At least 1 tag';
         return errors;
     }
 
@@ -44,6 +47,7 @@ export class Product {
         if(!p.imageName) return false;
         if(!p.imageURL || !p.imageURL.includes('https')) return false;
         if(!p.qty || !Number.isInteger(p.qty)) return false;
+        if(!p.tags) return false;
  
         return true;
      }

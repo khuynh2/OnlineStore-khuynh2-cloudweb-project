@@ -140,8 +140,8 @@ async function getProductById(data, context) {
     const doc = await admin.firestore().collection(Constant.collectionNames.PRODUCT)
       .doc(data).get();
     if (doc.exists) {
-      const { name, summary, price, imageName, imageURL } = doc.data();
-      const p = { name, summary, price, imageName, imageURL };
+      const { name, summary, price, imageName, imageURL, tags } = doc.data();
+      const p = { name, summary, price, imageName, imageURL, tags };
       p.docId = doc.id;
       return p;
     } else {

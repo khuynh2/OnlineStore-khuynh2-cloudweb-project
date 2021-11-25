@@ -13,6 +13,7 @@ export const menuCart = document.getElementById('menu-cart');
 export const menuProfile = document.getElementById('menu-profile');
 export const shoppingCartCount = document.getElementById('shoppingcart-count');
 
+
 //forms
 export const formSignin = document.getElementById('form-signin');
 
@@ -20,6 +21,8 @@ export const formSignUp = document.getElementById('form-signup');
 export const formSignUpPasswordError = document.getElementById('form-signup-password-error');
 export const buttonSignup = document.getElementById('button-signup');
 export const buttonReview = document.getElementById('create-comment');
+
+export const formSearch = document.getElementById('form-search');
 
 export const formAddProduct = {
     form: document.getElementById('form-add-product'),
@@ -29,6 +32,7 @@ export const formAddProduct = {
     imageTag: document.getElementById('form-add-product-image-tag'),
     imageButton: document.getElementById('form-add-product-image-button'),
     errorImage: document.getElementById('form-add-product-error-image'),
+    errorTags: document.getElementById('form-add-product-tags'),
 }
 export const formEditProduct = {
     form: document.getElementById('form-edit-product'),
@@ -38,6 +42,7 @@ export const formEditProduct = {
     errorPrice: document.getElementById('form-edit-product-error-price'),
     errorSummary: document.getElementById('form-edit-product-error-summary'),
     errorImage: document.getElementById('form-edit-product-error-image'),
+    errorTags: document.getElementById('form-edit-product-tags'),
 }
 export const formComment = {
     form: document.getElementById('form-leave-comment'),

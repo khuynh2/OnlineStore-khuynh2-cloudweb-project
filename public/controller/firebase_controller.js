@@ -247,3 +247,21 @@ export async function averageRate(itemName) {
 
 }
 
+export async function searchProducts(keywordsArray){
+    const productList = [];
+    const snapShot = await firebase.firestore()
+           .collection(Constant.collectionNames.PRODUCTS)
+           .where ('tags', 'array-contains-any', keywordsArray)
+  //         .orderBy('name', 'desc')
+           .get()
+
+    snapShot.forEach(doc => {
+        const p = new Product(doc.data());
+        p.docId = doc.id;
+        productList.push(p);
+    })
+
+    return productList;
+
+}
+

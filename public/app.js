@@ -8,6 +8,7 @@ import * as Edit from './controller/edit_products.js'
 import * as Purchase from './viewpage/purchase_page.js'
 import * as Cart from './viewpage/cart.js'
 import * as Profile from './viewpage/profile_page.js'
+import * as Search from './viewpage/search_page.js'
 
 
 window.onload = () => {
@@ -33,3 +34,4 @@ Edit.addEventListeners();
 Purchase.addEventListeners();
 Cart.addEventListeners();
 Profile.addEventListeners();
+Search.addEventListeners();

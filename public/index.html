@@ -18,7 +18,7 @@
 <body>
   <div class="my-banner"> Online Store </div>
   <!--Top Menus-->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" >
     <div class="container-fluid">
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -48,11 +48,30 @@
             <button id="menu-users" class="btn btn-dark modal-post-auth-admin">Users</button>
           </li>
         </ul>
-        <button id="menu-cart" class="btn btn-outline-success modal-post-auth">
-          <img src="images/cart.png" width="30 px">(<span id="shoppingcart-count">0</span>)
-        </button>
-        <button id="menu-profile" class="btn btn-outline-success modal-post-auth">Profile</button>
 
+
+        <ul class="navbar-nav ">
+          <li class="nav-item">
+            <form id="form-search" class="d-flex">
+              <input name="searchKeys" class="form-control my-2 my-sm-0" type="search" placeholder="Search"
+                aria-label="Search">
+              <button class="btn btn-success btn-sm" type="submit">
+                Search
+              </button>
+            </form>
+          </li>
+
+
+
+
+          <li class="nav-item d-flex" > 
+            <button id="menu-cart" class="btn btn-outline-success modal-post-auth">
+              <img src="images/cart.png" width="30 px">(<span id="shoppingcart-count">0</span>)
+            </button>
+           <button id="menu-profile" class="btn btn-outline-success modal-post-auth">Profile</button>
+          </li>
+
+        </ul>
 
       </div>
     </div>
@@ -68,12 +87,16 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="form-add-product">
+          <form id="form-add-product"  method="post">
             <div><input type="text" name="name" placeholder="product name">
               <p id="form-add-product-error-name" class="my-error"></p>
             </div>
             <div><input type="text" name="price" placeholder="price ($)">
               <p id="form-add-product-error-price" class="my-error"></p>
+            </div>
+            <div>
+              <input type="text" name="tags" placeholder="search keys seperated by a blank"/>
+              <p class = "my-error" id="form-add-product-tags"></p>
             </div>
             <div>Summary<br />
               <textarea name="summary"></textarea>
@@ -114,6 +137,10 @@
             <div>
               Price: <input type="text" name="price" />
               <p id="form-edit-product-error-price" class="my-error"></p>
+            </div>
+            <div>
+              <input type="text" name="tags" placeholder="search keys seperated by a blank"/>
+              <p class = "my-error" id="form-edit-product-tags"></p>
             </div>
             <div>
               Summary: <br><textarea name="summary"></textarea>
@@ -256,11 +283,11 @@
             </div>
 
             <div class="rating">
-              <i class="fa fa-star" id ="one"></i>
-              <i class="fa fa-star" id ="two"></i>
-              <i class="fa fa-star" id ="three"></i>
-              <i class="fa fa-star" id ="four"></i>
-              <i class="fa fa-star" id ="five"></i>
+              <i class="fa fa-star" id="one"></i>
+              <i class="fa fa-star" id="two"></i>
+              <i class="fa fa-star" id="three"></i>
+              <i class="fa fa-star" id="four"></i>
+              <i class="fa fa-star" id="five"></i>
             </div>
             <input id="modal-comment-rate" type="hidden" name="score" value="0">
 
@@ -298,11 +325,11 @@
             </div>
 
             <div class="rate-edit">
-              <i class="fa fa-star" id ="edit-one"></i>
-              <i class="fa fa-star" id ="edit-two"></i>
-              <i class="fa fa-star" id ="edit-three"></i>
-              <i class="fa fa-star" id ="edit-four"></i>
-              <i class="fa fa-star" id ="edit-five"></i>
+              <i class="fa fa-star" id="edit-one"></i>
+              <i class="fa fa-star" id="edit-two"></i>
+              <i class="fa fa-star" id="edit-three"></i>
+              <i class="fa fa-star" id="edit-four"></i>
+              <i class="fa fa-star" id="edit-five"></i>
             </div>
             <input id="modal-edit-rate" type="hidden" name="score" value="0">
 

@@ -8,6 +8,7 @@ import { ShoppingCart } from '../model/ShoppingCart.js'
 import * as Review from './review_page.js'
 import { Product } from '../model/product.js'
 
+
 export function addEventListeners() {
     Element.menuHome.addEventListener('click', async () => {
         history.pushState(null, null, Route.routePathname.HOME)
@@ -39,10 +40,25 @@ export async function home_page() {
         Util.info('Cannot get product info', JSON.stringify(e));
     }
 
+
+    html += buildHomeScreen(products);
+
+
+
+    
+}
+
+
+export async function buildHomeScreen(products){
+
+    let html = '';
+    
     for (let i = 0; i < products.length; i++) {
         html += await buildProductView(products[i], i);
     }
     Element.root.innerHTML = html;
+
+
 
     const decForms = document.getElementsByClassName('form-dec-qty');
     for (let i = 0; i < decForms.length; i++) {
@@ -55,7 +71,7 @@ export async function home_page() {
             Element.shoppingCartCount.innerHTML = cart.getTotalQty();
 
         })
-    }
+    };
 
     const incForms = document.getElementsByClassName('form-inc-qty');
     for (let i = 0; i < decForms.length; i++) {
@@ -70,6 +86,9 @@ export async function home_page() {
         })
     }
     Review.addReviewButtonListeners();
+
+    return html;
+
 }
 
 async function buildProductView(product, index) {

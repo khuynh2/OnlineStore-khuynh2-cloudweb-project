@@ -24,10 +24,14 @@ export function addEventListeners(){
         const button = e.target.getElementsByTagName('button')[0];
         const label = Util.disableButton(button);
 
+        const tag = e.target.tags.value;
+        
+
         const p =new Product({
             name: e.target.name.value,
             price:e.target.price.value,
             summary: e.target.summary.value,
+            tags: tag.toLowerCase().match(/\S+/g),
         });
         p.docId = e.target.docId.value;
 
@@ -35,6 +39,7 @@ export function addEventListeners(){
         Element.formEditProduct.errorName.innerHTML = errors.name ? errors.name: '';
         Element.formEditProduct.errorPrice.innerHTML = errors.price ? errors.price: '';
         Element.formEditProduct.errorSummary.innerHTML = errors.summary ? errors.summary: '';
+        Element.formAddProduct.errorTags.innerHTML = errors.tags ? errors.tags: '';
 
         if(Object.keys(errors).length != 0){
             Util.enableButton(button, label);        
@@ -88,6 +93,7 @@ export async function edit_product(docId){
     Element.formEditProduct.form.name.value = product.name;
     Element.formEditProduct.form.price.value = product.price;
     Element.formEditProduct.form.summary.value = product.summary;
+    Element.formEditProduct.form.tags.value = product.tags.toString().split(',').join(' ');
     Element.formEditProduct.imageTag.src = product.imageURL;
     Element.formEditProduct.errorImage.innerHTML = '';
     imageFile2Upload = null;

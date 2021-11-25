@@ -80,15 +80,17 @@ export async function purchase_page() {
             e.preventDefault();
             const index = e.target.index.value;
             Element.modalTransactionTitle.innerHTML = `Purchased At: ${new Date(carts[index].timestamp).toString()}`;
-            Element.modalTransactionBody.innerHTML = buildTransactionView(carts[index]);
+            Element.modalTransactionBody.innerHTML = buildTransactionView(carts[index]);     
             Element.modalTransactionView.show();
-            await Review.addCommentButtonListeners();
+            
+            Review.addCommentButtonListeners();
+
           
         });
     }
 
 
-    Review.createCommentListener();
+    
     Rate.ratingEventListener();
   }
    

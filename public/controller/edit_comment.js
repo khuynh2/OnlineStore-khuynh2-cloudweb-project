@@ -99,15 +99,12 @@ export function addReviewEditListeners() {
             }
 
             let itemName = comment.itemName;
-            Element.modalEditCommentItemName.value = itemName;
-            //Element.modalEditContent.value = ``;
-            // Element.formEditComment.form.itemName = itemName;
+            Element.modalEditCommentItemName.value = itemName; 
             Element.formEditComment.form.docId.value = comment.docId;
             Element.modalEditContent.value = `${comment.content}`;
-            // Element.formEditComment.form.reset();
             Element.modalEditCommentTitle.innerHTML = `Review for: ${itemName}`;
             Element.modalStarEdit.innerHTML = ReviewPage.rateDislay(0);
-
+            Rate.resetRating('edit-'); 
             Element.modalEditComment.show();
             Rate.ratingEditEventListener();
          

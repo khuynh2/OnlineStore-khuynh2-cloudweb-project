@@ -98,10 +98,12 @@ export function addEventListeners() {
 async function addNewProduct(form) {
     const name = form.name.value;
     const price = form.price.value;
+    const tag = form.tags.value;
+    const tags = tag.toLowerCase().match(/\S+/g);
     const summary = form.summary.value;
 
     const product = new Product({
-        name, price, summary
+        name, price, summary, tags
     });
 
     const errors = product.validate(imageFile2Upload);
@@ -110,6 +112,7 @@ async function addNewProduct(form) {
     Element.formAddProduct.errorPrice.innerHTML = errors.price ? errors.price : '';
     Element.formAddProduct.errorSummary.innerHTML = errors.summary ? errors.summary : '';
     Element.formAddProduct.errorImage.innerHTML = errors.image ? errors.image : '';
+    Element.formAddProduct.errorTags.innerHTML = errors.tags ? errors.tags: '';
 
     if (Object.keys(errors).length != 0) return; //error exsists
 
