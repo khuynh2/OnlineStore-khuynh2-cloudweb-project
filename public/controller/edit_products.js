@@ -95,7 +95,10 @@ export async function edit_product(docId){
     Element.formEditProduct.form.summary.value = product.summary;
 
     if(product.tags != null){
-    Element.formEditProduct.form.tags.value = product.tags.toString().split(',').join(' ');}
+    Element.formEditProduct.form.tags.value = product.tags.toString().split(',').join(' ');
+     } else{
+        Element.formEditProduct.form.tags.value = '';
+     }
 
     Element.formEditProduct.imageTag.src = product.imageURL;
     Element.formEditProduct.errorImage.innerHTML = '';

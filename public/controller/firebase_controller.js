@@ -265,3 +265,41 @@ export async function searchProducts(keywordsArray){
 
 }
 
+
+
+
+export async function getCommentListRateDesc(itemName) {
+    const snapShot = await firebase.firestore()
+        .collection(Constant.collectionNames.COMMENT)
+        .where('itemName', '==', itemName)
+        .orderBy('rate', "desc")
+        .get();
+
+    const comments = [];
+    snapShot.forEach(doc => {
+        const r = new Comment(doc.data())
+        r.docId = doc.id;
+        comments.push(r);
+    })
+
+    return comments;
+
+}
+
+export async function getCommentListRateAsc(itemName) {
+    const snapShot = await firebase.firestore()
+        .collection(Constant.collectionNames.COMMENT)
+        .where('itemName', '==', itemName)
+        .orderBy('rate')
+        .get();
+
+    const comments = [];
+    snapShot.forEach(doc => {
+        const r = new Comment(doc.data())
+        r.docId = doc.id;
+        comments.push(r);
+    })
+
+    return comments;
+
+}

@@ -126,7 +126,7 @@ async function buildProductView(product, index) {
                 <input type = "hidden" name = "productName" value = "${product.name}">
                 <input type = "hidden" name = "productId" value = "${product.docId}">
                 <input type = "hidden" name = "productURL" value = "${product.imageURL}">
-                <button id="button-review-product" class = "btn btn-outline-primary"> Review </button>
+                <button  class = "btn btn-outline-primary"> Review </button>
              </form>
          </div>
     </div>

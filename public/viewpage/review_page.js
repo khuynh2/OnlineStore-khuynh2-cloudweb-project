@@ -9,6 +9,7 @@ import * as EditReview from '../controller/edit_comment.js'
 
 import * as Review from './review_page.js'
 import * as Rate from '../controller/rating.js'
+import * as Sort from '../controller/sort_comment.js'
 
 export function addReviewButtonListeners() {
     const reviewButtonForm = document.getElementsByClassName('review-product-form');
@@ -25,13 +26,13 @@ export function addReviewSubmitEvent(form) {
         let productName = e.target.productName.value;
         let productURL = e.target.productURL.value;
         history.pushState(null, null, Route.routePathname.REVIEW + '#' + productId);
-        await review_page(productName, productURL);
+        await review_page("sort-time",productName, productURL);
     })
 
 }
 
 
-export async function review_page(productName, productURL) {
+export async function review_page(sortType,productName, productURL) {
 
     if (!productName) {
         // Util.info('Error', 'Product Id is null: invalid access')
@@ -42,21 +43,36 @@ export async function review_page(productName, productURL) {
     let commentList;
 
     let html = `<h1>Review for ${productName}</h1>
+                <div>
                 <img src="${productURL}" width = "150px">
+                </div>
     `;
 
-    try {
-        commentList = await FirebaseController.getCommentList(productName);
-        if (!commentList) {
-            Util.info('Error', 'Comments do not exist');
-            return;
-        }
 
-    } catch (e) {
-        if (Constant.DEV) console.log(e);
-        Util.info('Error', JSON.stringify(e))
-        return;
+    commentList = await Sort.sortReviews(sortType, productName);
+
+
+    if (commentList.length == 0) {
+        html += `<h4>No reviews have been made</h4>`
+    } else {
+
+        html += `
+        <br>
+        <div class="btn-group" id = "review-sort">
+                <button id = "review-sort-button" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Sort by
+                </button>
+            <ul class="dropdown-menu">
+            <li><a class="dropdown-item" id = "sort-time">Most recent</a></li>
+            <li><a class="dropdown-item" id = "sort-hrate">Highest rating</a></li>
+            <li><a class="dropdown-item" id = "sort-lrate">Lowest rating</a></li>
+     
+            </ul>
+        </div> 
+        
+    `;
     }
+
 
     html += buildReview(commentList);
 
@@ -88,6 +104,7 @@ export async function review_page(productName, productURL) {
     EditReview.addReviewEditListeners();
     EditReview.addEventListeners();
     EditReview.addReviewAdminDeleteListeners();
+    Sort.addSortListeners(productName, productURL);
 
 
 
@@ -100,26 +117,26 @@ export function addCommentButtonListeners() {
     //console.log(commentButtonForm.length)
     let itemName
     for (let i = 0; i < commentButtonForm.length; i++) {
-            commentButtonForm[i].addEventListener('submit', async e => {
+        commentButtonForm[i].addEventListener('submit', async e => {
             e.preventDefault();
             //    let index = e.target.index.value;
             itemName = e.target.itemName.value;
             Element.modalCommentItemName.value = itemName;
             Element.modalContent.value = ``;
-            
-          //  Element.formComment.form.reset();
+
+            //  Element.formComment.form.reset();
             Element.modalCommentTitle.innerHTML = `Review for: ${itemName}`;
             Element.modalRate.innerHTML = rateDislay(0);
             Element.modalTransactionView.hide();
             Element.modalComment.show();
-            
-            
+
+
             Review.createCommentListener();
-           
-            
-        },)
+
+
+        })
     }
-    
+
 
 }
 
@@ -144,31 +161,34 @@ export function createCommentListener() {
 
         try {
             const docId = FirebaseController.addComment(comment);
-             Rate.resetRating(0); 
-             Util.info('Thank you for your feedback!', ``, Element.modalComment);
+            Rate.resetRating(0);
+            Util.info('Thank you for your feedback!', ``, Element.modalComment);
 
         } catch (e) {
             if (Constant.DEV) console.log(e)
             Util.info('Commnent failed', JSON.stringify(e), Element.modalComment);
         }
         Util.enableButton(Element.buttonReview, label);
-        
-        
 
-     }, { once: true })
+
+
+    }, { once: true })
 }
 
 
 export function buildReview(commentList) {
 
-
-
     let html = ``;
 
-    commentList.forEach(comment => {
-        let display = displayUserAuth(comment.uid);
 
+
+    commentList.forEach(comment => {
+
+        
+
+        let display = displayUserAuth(comment.uid);
         html += `   
+        <br>
         <div id ="comment-${comment.docId}">
             <div  class = "w-75  border border-primary rounded">
 
@@ -177,7 +197,14 @@ export function buildReview(commentList) {
                         Author: ${comment.email} 
                         </div>
 
-        
+                <form class="form-admin-delete-comment" style=" display: inline-block; float: right;">  
+                        <input type = "hidden" name="docId" value="${comment.docId}">
+                        <button  type="submit" class="btn btn-outline-danger btn-sm ms-1 btn-post-auth-admin" > 
+                                    Delete
+                        </button>
+                </form>
+
+
                 <form class="form-delete-comment" style=" display: inline-block; float: right;">  
                     <input type = "hidden" name="docId" value="${comment.docId}">
                     <button  type="submit" class="btn btn-outline-warning btn-sm ms-1" style=" display: ${display};" > 
@@ -185,12 +212,7 @@ export function buildReview(commentList) {
                     </button>
                 </form>
               
-                <form class="form-admin-delete-comment" style=" display: inline-block; float: right;">  
-                    <input type = "hidden" name="docId" value="${comment.docId}">
-                    <button  type="submit" class="btn btn-outline-danger btn-sm ms-1 btn-post-auth-admin" > 
-                                Delete
-                    </button>
-                </form>
+               
 
                 <form class="form-edit-comment" style=" display: inline-block; float: right;">  
                     <input type = "hidden" name="docId" value="${comment.docId}">
