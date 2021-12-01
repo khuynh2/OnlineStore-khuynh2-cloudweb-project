@@ -72,6 +72,8 @@ export async function purchase_page() {
 
     html += '</tbody></table>';
 
+    
+
     Element.root.innerHTML = html;
 
     const historyForms = document.getElementsByClassName('form-purchase-history');
@@ -83,14 +85,14 @@ export async function purchase_page() {
             Element.modalTransactionBody.innerHTML = buildTransactionView(carts[index]);     
             Element.modalTransactionView.show();
             
-            Review.addCommentButtonListeners();
+            
 
           
         });
     }
 
-
-    
+    Review.addCommentButtonListeners();
+    Review.createCommentListener();
     Rate.ratingEventListener();
   }
    

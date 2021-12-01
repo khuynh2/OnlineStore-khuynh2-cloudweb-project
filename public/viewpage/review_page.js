@@ -26,13 +26,13 @@ export function addReviewSubmitEvent(form) {
         let productName = e.target.productName.value;
         let productURL = e.target.productURL.value;
         history.pushState(null, null, Route.routePathname.REVIEW + '#' + productId);
-        await review_page("sort-time",productName, productURL);
+        await review_page("sort-time", productName, productURL);
     })
 
 }
 
 
-export async function review_page(sortType,productName, productURL) {
+export async function review_page(sortType, productName, productURL) {
 
     if (!productName) {
         // Util.info('Error', 'Product Id is null: invalid access')
@@ -113,37 +113,58 @@ export async function review_page(sortType,productName, productURL) {
 
 
 export function addCommentButtonListeners() {
-    const commentButtonForm = document.getElementsByClassName('form-comment-product');
+    const commentButtonForm = Element.modalTransactionBody;
+    //document.getElementsByClassName('form-comment-product');
     //console.log(commentButtonForm.length)
     let itemName
-    for (let i = 0; i < commentButtonForm.length; i++) {
-        commentButtonForm[i].addEventListener('submit', async e => {
-            e.preventDefault();
-            //    let index = e.target.index.value;
-            itemName = e.target.itemName.value;
-            Element.modalCommentItemName.value = itemName;
-            Element.modalContent.value = ``;
+    // for (let i = 0; i < commentButtonForm.length; i++) {
+    //     commentButtonForm[i].addEventListener('submit', async e => {
+    //         e.preventDefault();
 
-            //  Element.formComment.form.reset();
-            Element.modalCommentTitle.innerHTML = `Review for: ${itemName}`;
-            Element.modalRate.innerHTML = rateDislay(0);
-            Element.modalTransactionView.hide();
-            Element.modalComment.show();
+    //         itemName = e.target.itemName.value;
+    //         Element.modalCommentItemName.value = itemName;
+    //         Element.modalContent.value = ``;
 
-
-            Review.createCommentListener();
+    //        // Element.formComment.form.reset();
+    //         Element.modalCommentTitle.innerHTML = `Review for: ${itemName}`;
+    //         Element.modalRate.innerHTML = rateDislay(0);
+    //         Element.modalTransactionView.hide();
+    //         Element.modalComment.show();
 
 
-        })
-    }
+    //         //createCommentListener();
 
+
+    //     }, )
+
+    // }
+
+
+    commentButtonForm.addEventListener('submit', async e => {
+        e.preventDefault();
+
+        itemName = e.target.itemName.value;
+        Element.modalCommentItemName.value = itemName;
+        Element.modalContent.value = ``;
+
+        // Element.formComment.form.reset();
+        Element.modalCommentTitle.innerHTML = `Review for: ${itemName}`;
+        Element.modalRate.innerHTML = rateDislay(0);
+        Element.modalTransactionView.hide();
+        Element.modalComment.show();
+
+
+        //createCommentListener();
+
+
+    })
 
 }
 
 
 
 export function createCommentListener() {
-    Element.formComment.form.addEventListener('submit', async e => {
+    let leaveCommentBtn = Element.formComment.form.addEventListener('submit', async e => {
         e.preventDefault();
 
         const itemName = e.target.itemName.value;
@@ -160,13 +181,14 @@ export function createCommentListener() {
         // console.log("run");
 
         try {
-            const docId = FirebaseController.addComment(comment);
+            await FirebaseController.addComment(comment);
             Rate.resetRating(0);
             Util.info('Thank you for your feedback!', ``, Element.modalComment);
 
-        } catch (e) {
-            if (Constant.DEV) console.log(e)
-            Util.info('Commnent failed', JSON.stringify(e), Element.modalComment);
+
+        } catch (err) {
+            if (Constant.DEV) console.log(err)
+            Util.info('Commnent failed', JSON.stringify(err), Element.modalComment);
         }
         Util.enableButton(Element.buttonReview, label);
 
@@ -184,7 +206,7 @@ export function buildReview(commentList) {
 
     commentList.forEach(comment => {
 
-        
+
 
         let display = displayUserAuth(comment.uid);
         html += `   
