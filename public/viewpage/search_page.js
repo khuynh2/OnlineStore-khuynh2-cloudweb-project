@@ -41,7 +41,7 @@ export async function  search_page (joinedSearchKeys){
     let productList
     try{
         productList = await FirebaseController.searchProducts(searchKeysInArray);
-        console.log(productList);
+       
     }
     catch(e){
         if (Constant.DEV) console.log(e)
