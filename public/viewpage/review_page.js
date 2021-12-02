@@ -130,13 +130,8 @@ export function addCommentButtonListeners() {
     //         Element.modalRate.innerHTML = rateDislay(0);
     //         Element.modalTransactionView.hide();
     //         Element.modalComment.show();
-
-
     //         //createCommentListener();
-
-
     //     }, )
-
     // }
 
 
@@ -146,14 +141,14 @@ export function addCommentButtonListeners() {
         itemName = e.target.itemName.value;
         Element.modalCommentItemName.value = itemName;
         Element.modalContent.value = ``;
+        Element.modalCommentRate.value = 0;
 
         // Element.formComment.form.reset();
         Element.modalCommentTitle.innerHTML = `Review for: ${itemName}`;
         Element.modalRate.innerHTML = rateDislay(0);
+        Rate.resetRating(0);
         Element.modalTransactionView.hide();
         Element.modalComment.show();
-
-
         //createCommentListener();
 
 
@@ -296,18 +291,18 @@ export function rateDislay(rate) {
     //     console.log(i);
     // })
 
-    if (Number.isNaN(rate) || rate == null) {
+    if (Number.isNaN(rate) || rate == null|| rate ==0) {
         return `   `
     }
 
-    if (rate == 0) {
-        return `<i class="fa fa-star " ></i>
-       <i class="fa fa-star " ></i>
-       <i class="fa fa-star " ></i>
-       <i class="fa fa-star " ></i>
-       <i class="fa fa-star " ></i>
-       `
-    }
+    // if (rate == 0) {
+    //     return `<i class="fa fa-star " ></i>
+    //    <i class="fa fa-star " ></i>
+    //    <i class="fa fa-star " ></i>
+    //    <i class="fa fa-star " ></i>
+    //    <i class="fa fa-star " ></i>
+    //    `
+    // }
 
 
     rate = Number.parseFloat(rate).toFixed(1);

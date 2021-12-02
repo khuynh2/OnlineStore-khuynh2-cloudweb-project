@@ -102,7 +102,7 @@ async function buildProductView(product, index) {
             <p class="card-text">
                 ${Util.currency(product.price)} <br>
                 ${product.summary}
-                </p>
+            </p>
                 `
     html+=Review.rateDislay(avg);
 

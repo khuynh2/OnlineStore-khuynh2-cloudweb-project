@@ -103,8 +103,11 @@ export function addReviewEditListeners() {
             Element.formEditComment.form.docId.value = comment.docId;
             Element.modalEditContent.value = `${comment.content}`;
             Element.modalEditCommentTitle.innerHTML = `Review for: ${itemName}`;
-            Element.modalStarEdit.innerHTML = ReviewPage.rateDislay(0);
-            Rate.resetRating('edit-'); 
+            Element.modalEditRate.value = comment.rate;
+            Rate.initialRating('edit-', comment.rate);
+          //  Element.modalStarEdit.innerHTML = ReviewPage.rateDislay(comment.rate);
+            console.log(Element.modalStarEdit.innerHTML)
+           // Rate.resetRating('edit-'); 
             Element.modalEditComment.show();
             Rate.ratingEditEventListener();
          

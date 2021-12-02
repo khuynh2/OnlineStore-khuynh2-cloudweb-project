@@ -30,20 +30,34 @@ export function ratingEventListener() {
 export function resetRating(extendName) {
 
     let extend = '';
-    if(extendName != 0){
+    if (extendName != 0) {
         extend = extendName;
     }
-
-    
-
-    
     rates.forEach(rate => {
         let check = document.getElementById(rate).className;
-       
+
         if (check.includes('checked')) {
             document.getElementById(extend + rate).classList.remove("checked");
         }
     });
+}
+
+export function initialRating(extendName, value) {
+    let extend = '';
+    if (extendName != 0) {
+        extend = extendName;
+    }
+
+    for (let i = 0; i < 5; i++) {
+        if (i< value) {
+            let check = document.getElementById(extend + rates[i]).className;
+            if (!check.includes('checked')) {
+                document.getElementById(extend + rates[i]).classList.add("checked");
+            }
+        }
+
+    }
+
 }
 
 

@@ -209,8 +209,8 @@ export async function getCommentById(commentId) {
         .get();
 
     if (doc.exists) {
-        const { itemName, uid, timestamp, content } = doc.data();
-        const c = { itemName, uid, timestamp, content };
+        const { itemName, uid, timestamp, content, rate} = doc.data();
+        const c = { itemName, uid, timestamp, content, rate };
         c.docId = doc.id;
         return c;
     } else {
