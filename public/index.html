@@ -16,9 +16,9 @@
 </head>
 
 <body>
-  <div class="my-banner"> Online Store </div>
+ 
   <!--Top Menus-->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
     <div class="container-fluid">
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -28,17 +28,17 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <button id="menu-signin" class="btn btn-outline-danger modal-pre-auth" data-bs-toggle="modal"
+            <button id="menu-signin" class="btn btn-outline-light modal-pre-auth" data-bs-toggle="modal"
               data-bs-target="#modal-signin">Sign In</button>
           </li>
           <li class="nav-item">
-            <button id="menu-home" class="btn btn-outline-primary ">Home</button>
+            <button id="menu-home" class="btn btn-dark ">Home</button>
           </li>
           <li class="nav-item">
-            <button id="menu-purchases" class="btn btn-outline-primary modal-post-auth">Purchases</button>
+            <button id="menu-purchases" class="btn btn-dark modal-post-auth">Purchases</button>
           </li>
           <li class="nav-item">
-            <button id="menu-signout" class="btn btn-outline-danger modal-post-auth">Sign Out</button>
+            <button id="menu-signout" class="btn btn-outline-light modal-post-auth">Sign Out</button>
           </li>
           <!--Admin-->
           <li class="nav-item">
@@ -76,6 +76,15 @@
       </div>
     </div>
   </nav>
+
+  <div class="jumbotron jumbotron-fluid p-3 p-md-5 text-white rounded" >
+    <div class="container banner">
+      <h1 class="display-3">Online Shopping</h1>
+      <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id mauris consectetur, tincidunt est non, luctus est.</p>
+    </div>
+  </div>
+
+  
 
   <!-- Modal: Add new product -->
   <div class="modal fade" id="modal-add-product" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -347,7 +356,7 @@
 
 
 
-  <div id="root" class="bg-light p-5 m-3 "></div>
+  <div id="root" class="p-5 m-3 "></div>
 
 
   <!-- update the version number as needed -->
