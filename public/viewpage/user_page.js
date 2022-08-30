@@ -22,7 +22,7 @@ export async function users_page() {
     try {
         userList = await FirebaseController.getUserList();
         html += `
-       <table class="table">
+       <table class="table table-warning">
         <thead>
             <tr>
             <th scope="col">Email</th>

@@ -1,12 +1,5 @@
 
-.my-banner {
-    width: 100%;
-    font-size: 200%;
-    text-align: center;
-    color: white;
-    background-color: navy;
 
-}
 
 
 
@@ -14,7 +7,6 @@
     background: rgba(106,77,65,0.5);
     padding-left: 10%;
     width: 90%;
-   
 }
 
 .banner-text{
@@ -23,6 +15,10 @@
     font-family: Tahoma, sans-serif;
     font-weight:bold;
     opacity: 1;
+}
+
+h1{
+    color: #d19361;
 }
 
 
@@ -84,6 +80,11 @@ textarea{
     
     font-size:20px;
 }
+
+.card-text{
+    font-size:13px;
+}
+
 
 #form-add-product-image-tag{
     max-height: 200px;

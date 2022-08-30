@@ -136,7 +136,7 @@ async function addNewProduct(form) {
 
 function buildProductCard(product){
     return `
-    <div id= "card-${product.docId}" class="card" style="width: 18rem; display: inline-block">
+    <div id= "card-${product.docId}" class="card rounded m-3 p-2" style="width: 18rem; display: inline-block">
         <img src="${product.imageURL}" class="card-img-top">
         <div class="card-body">
             <h5 class="card-title">${product.name}</h5>

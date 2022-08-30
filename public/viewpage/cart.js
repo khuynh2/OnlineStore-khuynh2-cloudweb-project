@@ -28,7 +28,7 @@ export async function cart_page(){
         return;
     }
 
-    html+= `<table class="table table-stripped">
+    html+= `<table class="table table-stripped table-warning">
     <thead>
       <tr>
         <th scope="col">Image</th>
