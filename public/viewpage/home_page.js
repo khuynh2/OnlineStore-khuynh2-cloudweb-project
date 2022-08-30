@@ -108,7 +108,7 @@ async function buildProductView(product, index) {
 
 
     html += `
-             <div class = "container pt-3 bg-light ${Auth.currentUser ? 'd-block' : 'd-none'}">
+             <div class = "container pt-3 ${Auth.currentUser ? 'd-block' : 'd-none'}">
                 <form method = "post" class="d-inline form-dec-qty">
                       <input type = "hidden" name ="index" value="${index}">
                       <button class="btn btn-outline-danger"> &minus;</button>
