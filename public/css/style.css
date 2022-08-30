@@ -21,6 +21,13 @@ h1{
     color: #d19361;
 }
 
+.site-footer{
+    padding: 1.0rem 0;
+    color: white;
+    text-align: center;
+    background-color: #312937;
+    border-top: .05rem solid #e5e5e5;
+}
 
 .jumbotron {
     background-image: url("https://firebasestorage.googleapis.com/v0/b/cs5373-vinhh-web.appspot.com/o/ui_images%2Ftable-filled-with-Thanksgiving-food-and-dishes_b.jpg?alt=media&token=6bd99c5a-3acb-40c4-9c12-06492253c27f");
