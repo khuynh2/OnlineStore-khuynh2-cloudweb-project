@@ -95,12 +95,13 @@ async function buildProductView(product, index) {
     let avg = await FirebaseController.averageRate(product.name);
 
     let html = `
-    <div class="card rounded" style="width: 18rem; display: inline-block;">
+    <div class="card rounded m-3 p-2" style="width: 18rem; display: inline-block; ">
         <img src="${product.imageURL}" class="card-img-top">
         <div class="card-body" >
-            <h5 class="card-title">${product.name}</h5>
+            <h5 class="card-title text-primary">${product.name}</h5>
+            
             <p class="card-text">
-                ${Util.currency(product.price)} <br>
+               <b> ${Util.currency(product.price)}</b> <br>
                 ${product.summary}
             </p>
                 `
@@ -108,17 +109,17 @@ async function buildProductView(product, index) {
 
 
     html += `
-             <div class = "container pt-3 bg-light ${Auth.currentUser ? 'd-block' : 'd-none'}">
+             <div class = "container pt-3 ${Auth.currentUser ? 'd-block' : 'd-none'}">
                 <form method = "post" class="d-inline form-dec-qty">
                       <input type = "hidden" name ="index" value="${index}">
-                      <button class="btn btn-outline-danger"> &minus;</button>
+                      <button class="btn btn-warning rounded-circle"> &minus;</button>
                 </form>
-                <div id = "qty-${product.docId}" class = "container rounded text-center text-white  bg-primary d-inline-block w-50">
+                <div id = "qty-${product.docId}" class = "container rounded text-center d-inline-block w-50">
                 ${product.qty == null || product.qty == 0 ? 'Add' : product.qty}
                 </div>
                  <form method = "post" class="d-inline form-inc-qty">
                       <input type = "hidden" name ="index" value="${index}">
-                      <button class="btn btn-outline-primary"> &plus;</button>
+                      <button class="btn btn-warning rounded-circle"> &plus;</button>
                 </form>             
              </div>
              <hr>

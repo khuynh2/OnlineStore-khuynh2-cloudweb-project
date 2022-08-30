@@ -11,6 +11,9 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/custom_bootstrap.css">
+ 
+  
 
   <title>Online Shopping</title>
 </head>
@@ -28,7 +31,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <button id="menu-signin" class="btn btn-outline-light modal-pre-auth" data-bs-toggle="modal"
+            <button id="menu-signin" class="btn btn-danger modal-pre-auth" data-bs-toggle="modal"
               data-bs-target="#modal-signin">Sign In</button>
           </li>
           <li class="nav-item">
@@ -38,7 +41,7 @@
             <button id="menu-purchases" class="btn btn-dark modal-post-auth">Purchases</button>
           </li>
           <li class="nav-item">
-            <button id="menu-signout" class="btn btn-outline-light modal-post-auth">Sign Out</button>
+            <button id="menu-signout" class="btn btn-dark modal-post-auth">Sign Out</button>
           </li>
           <!--Admin-->
           <li class="nav-item">
@@ -53,9 +56,9 @@
         <ul class="navbar-nav ">
           <li class="nav-item">
             <form id="form-search" class="d-flex">
-              <input name="searchKeys" class="form-control my-2 my-sm-0" type="search" placeholder="Search"
+              <input name="searchKeys" class="form-control mx-2" type="search" placeholder="Search"
                 aria-label="Search">
-              <button class="btn btn-success btn-sm" type="submit">
+              <button class="btn btn-outline-warning btn-sm" type="submit">
                 Search
               </button>
             </form>
@@ -65,10 +68,10 @@
 
 
           <li class="nav-item d-flex" > 
-            <button id="menu-cart" class="btn btn-outline-success modal-post-auth">
-              <img src="images/cart.png" width="30 px">(<span id="shoppingcart-count">0</span>)
+            <button id="menu-cart" class="btn btn-dark mx-2 modal-post-auth">
+              <img src="images/cart_light.ico" >(<span id="shoppingcart-count">0</span>)
             </button>
-           <button id="menu-profile" class="btn btn-outline-success modal-post-auth">Profile</button>
+           <button id="menu-profile" class="btn btn-warning rounded-circle p-1 modal-post-auth">Profile</button>
           </li>
 
         </ul>
@@ -77,9 +80,9 @@
     </div>
   </nav>
 
-  <div class="jumbotron jumbotron-fluid p-3 p-md-5 text-white rounded" >
+  <div class="jumbotron jumbotron-fluid p-5 p-md-5 text-white rounded" >
     <div class="container banner">
-      <h1 class="display-3">Online Shopping</h1>
+      <h1 class="display-3 banner-text text-white">ONLINE SHOPPING</h1>
       <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id mauris consectetur, tincidunt est non, luctus est.</p>
     </div>
   </div>
