@@ -58,7 +58,7 @@ export async function review_page(sortType, productName, productURL) {
 
         html += `
         <br>
-        <div class="btn-group" id = "review-sort">
+        <div class="btn-group mb-2" id = "review-sort">
                 <button id = "review-sort-button" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 Sort by
                 </button>
@@ -216,7 +216,7 @@ export function buildReview(commentList) {
 
                 <form class="form-admin-delete-comment" style=" display: inline-block; float: right;">  
                         <input type = "hidden" name="docId" value="${comment.docId}">
-                        <button  type="submit" class="btn btn-outline-danger btn-sm ms-1 btn-post-auth-admin" > 
+                        <button  type="submit" class="btn btn-danger btn-sm ms-1 btn-post-auth-admin" style=" display: none" > 
                                     Delete
                         </button>
                 </form>
@@ -224,7 +224,7 @@ export function buildReview(commentList) {
 
                 <form class="form-delete-comment" style=" display: inline-block; float: right;">  
                     <input type = "hidden" name="docId" value="${comment.docId}">
-                    <button  type="submit" class="btn btn-outline-warning btn-sm ms-1" style=" display: ${display};" > 
+                    <button  type="submit" class="btn btn-warning btn-sm ms-1 btn-post-auth" style=" display: ${display};" > 
                                 Delete
                     </button>
                 </form>
@@ -233,7 +233,7 @@ export function buildReview(commentList) {
 
                 <form class="form-edit-comment" style=" display: inline-block; float: right;">  
                     <input type = "hidden" name="docId" value="${comment.docId}">
-                    <button  type="submit" class="btn btn-outline-warning btn-sm " style=" display: ${display};" > 
+                    <button  type="submit" class="btn btn-warning btn-sm btn-post-auth" style=" display: ${display};" > 
                                 Edit
                     </button>
                 </form>
