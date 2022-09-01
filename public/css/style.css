@@ -17,9 +17,11 @@
     opacity: 1;
 }
 
-h1{
+h1, h4{
     color: #d19361;
 }
+
+
 
 .site-footer{
     padding: 1.0rem 0;
@@ -54,6 +56,8 @@ li{
 .btn-post-auth-admin{
     display:none;
 }
+
+
 
 .modal-post-auth-admin{
     display:none;
